@@ -1,0 +1,471 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="format-detection" content="telephone=no">
+<meta name="theme-color" content="#33a16e"/>
+<title>Meclusions | Portfolio</title>
+<meta name="author" content="Themezinho">
+<meta name="description" content="Meclusions | Portfolio">
+<meta name="keywords" content="creative, works, showcase, portfolio, highlight, projects, parallax, agency, digital, studio, css, animation, transition, svg, html, css">
+
+<!-- SOCIAL MEDIA META -->
+<meta property="og:description" content="Meclusions | Portfolio">
+<meta property="og:image" content="http://www.themezinho.net/unicord/preview.png">
+<meta property="og:site_name" content="unicord">
+<meta property="og:title" content="Unicord">
+<meta property="og:type" content="website">
+<meta property="og:url" content="http://www.themezinho.net/unicord">
+
+<!-- TWITTER META -->
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@unicord">
+<meta name="twitter:creator" content="@unicord">
+<meta name="twitter:title" content="unicord">
+<meta name="twitter:description" content="Meclusions | Portfolio">
+<meta name="twitter:image" content="http://www.themezinho.net/unicord/preview.png">
+
+<!-- FAVICON FILES -->
+<link href="ico/apple-touch-icon-144-precomposed.png" rel="apple-touch-icon" sizes="144x144">
+<link href="ico/apple-touch-icon-114-precomposed.png" rel="apple-touch-icon" sizes="114x114">
+<link href="ico/apple-touch-icon-72-precomposed.png" rel="apple-touch-icon" sizes="72x72">
+<link href="ico/apple-touch-icon-57-precomposed.png" rel="apple-touch-icon">
+<link href="ico/favicon.png" rel="shortcut icon">
+
+<!-- CSS FILES -->
+<link rel="stylesheet" href="css/font-awesome.min.css">
+<link rel="stylesheet" href="css/animate.min.css">
+<link rel="stylesheet" href="css/swiper.min.css">
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="css/style.css">
+
+<script type="text/javascript">
+  // <![CDATA[
+  var colour="random"; // in addition to "random" can be set to any valid colour eg "#f0f" or "red"
+  var sparkles=50;
+  var x=ox=400;
+  var y=oy=300;
+  var swide=800;
+  var shigh=600;
+  var sleft=sdown=0;
+  var tiny=new Array();
+  var star=new Array();
+  var starv=new Array();
+  var starx=new Array();
+  var stary=new Array();
+  var tinyx=new Array();
+  var tinyy=new Array();
+  var tinyv=new Array();
+  
+  window.onload=function() { if (document.getElementById) {
+    var i, rats, rlef, rdow;
+    for (var i=0; i<sparkles; i++) {
+      var rats=createDiv(3, 3);
+      rats.style.visibility="hidden";
+      rats.style.zIndex="999";
+      document.body.appendChild(tiny[i]=rats);
+      starv[i]=0;
+      tinyv[i]=0;
+      var rats=createDiv(5, 5);
+      rats.style.backgroundColor="transparent";
+      rats.style.visibility="hidden";
+      rats.style.zIndex="999";
+      var rlef=createDiv(1, 5);
+      var rdow=createDiv(5, 1);
+      rats.appendChild(rlef);
+      rats.appendChild(rdow);
+      rlef.style.top="2px";
+      rlef.style.left="0px";
+      rdow.style.top="0px";
+      rdow.style.left="2px";
+      document.body.appendChild(star[i]=rats);
+    }
+    set_width();
+    sparkle();
+  }}
+  
+  function sparkle() {
+    var c;
+    if (Math.abs(x-ox)>1 || Math.abs(y-oy)>1) {
+      ox=x;
+      oy=y;
+      for (c=0; c<sparkles; c++) if (!starv[c]) {
+        star[c].style.left=(starx[c]=x)+"px";
+        star[c].style.top=(stary[c]=y+1)+"px";
+        star[c].style.clip="rect(0px, 5px, 5px, 0px)";
+        star[c].childNodes[0].style.backgroundColor=star[c].childNodes[1].style.backgroundColor=(colour=="random")?newColour():colour;
+        star[c].style.visibility="visible";
+        starv[c]=50;
+        break;
+      }
+    }
+    for (c=0; c<sparkles; c++) {
+      if (starv[c]) update_star(c);
+      if (tinyv[c]) update_tiny(c);
+    }
+    setTimeout("sparkle()", 40);
+  }
+  
+  function update_star(i) {
+    if (--starv[i]==25) star[i].style.clip="rect(1px, 4px, 4px, 1px)";
+    if (starv[i]) {
+      stary[i]+=1+Math.random()*3;
+      starx[i]+=(i%5-2)/5;
+      if (stary[i]<shigh+sdown) {
+        star[i].style.top=stary[i]+"px";
+        star[i].style.left=starx[i]+"px";
+      }
+      else {
+        star[i].style.visibility="hidden";
+        starv[i]=0;
+        return;
+      }
+    }
+    else {
+      tinyv[i]=50;
+      tiny[i].style.top=(tinyy[i]=stary[i])+"px";
+      tiny[i].style.left=(tinyx[i]=starx[i])+"px";
+      tiny[i].style.width="2px";
+      tiny[i].style.height="2px";
+      tiny[i].style.backgroundColor=star[i].childNodes[0].style.backgroundColor;
+      star[i].style.visibility="hidden";
+      tiny[i].style.visibility="visible"
+    }
+  }
+  
+  function update_tiny(i) {
+    if (--tinyv[i]==25) {
+      tiny[i].style.width="1px";
+      tiny[i].style.height="1px";
+    }
+    if (tinyv[i]) {
+      tinyy[i]+=1+Math.random()*3;
+      tinyx[i]+=(i%5-2)/5;
+      if (tinyy[i]<shigh+sdown) {
+        tiny[i].style.top=tinyy[i]+"px";
+        tiny[i].style.left=tinyx[i]+"px";
+      }
+      else {
+        tiny[i].style.visibility="hidden";
+        tinyv[i]=0;
+        return;
+      }
+    }
+    else tiny[i].style.visibility="hidden";
+  }
+  
+  document.onmousemove=mouse;
+  function mouse(e) {
+    if (e) {
+      y=e.pageY;
+      x=e.pageX;
+    }
+    else {
+      set_scroll();
+      y=event.y+sdown;
+      x=event.x+sleft;
+    }
+  }
+  
+  window.onscroll=set_scroll;
+  function set_scroll() {
+    if (typeof(self.pageYOffset)=='number') {
+      sdown=self.pageYOffset;
+      sleft=self.pageXOffset;
+    }
+    else if (document.body && (document.body.scrollTop || document.body.scrollLeft)) {
+      sdown=document.body.scrollTop;
+      sleft=document.body.scrollLeft;
+    }
+    else if (document.documentElement && (document.documentElement.scrollTop || document.documentElement.scrollLeft)) {
+      sleft=document.documentElement.scrollLeft;
+      sdown=document.documentElement.scrollTop;
+    }
+    else {
+      sdown=0;
+      sleft=0;
+    }
+  }
+  
+  window.onresize=set_width;
+  function set_width() {
+    var sw_min=999999;
+    var sh_min=999999;
+    if (document.documentElement && document.documentElement.clientWidth) {
+      if (document.documentElement.clientWidth>0) sw_min=document.documentElement.clientWidth;
+      if (document.documentElement.clientHeight>0) sh_min=document.documentElement.clientHeight;
+    }
+    if (typeof(self.innerWidth)=='number' && self.innerWidth) {
+      if (self.innerWidth>0 && self.innerWidth<sw_min) sw_min=self.innerWidth;
+      if (self.innerHeight>0 && self.innerHeight<sh_min) sh_min=self.innerHeight;
+    }
+    if (document.body.clientWidth) {
+      if (document.body.clientWidth>0 && document.body.clientWidth<sw_min) sw_min=document.body.clientWidth;
+      if (document.body.clientHeight>0 && document.body.clientHeight<sh_min) sh_min=document.body.clientHeight;
+    }
+    if (sw_min==999999 || sh_min==999999) {
+      sw_min=800;
+      sh_min=600;
+    }
+    swide=sw_min;
+    shigh=sh_min;
+  }
+  
+  function createDiv(height, width) {
+    var div=document.createElement("div");
+    div.style.position="absolute";
+    div.style.height=height+"px";
+    div.style.width=width+"px";
+    div.style.overflow="hidden";
+    return (div);
+  }
+  
+  function newColour() {
+    var c=new Array();
+    c[0]=255;
+    c[1]=Math.floor(Math.random()*256);
+    c[2]=Math.floor(Math.random()*(256-c[1]/2));
+    c.sort(function(){return (0.5 - Math.random());});
+    return ("rgb("+c[0]+", "+c[1]+", "+c[2]+")");
+  }
+  // ]]>
+  </script>
+
+</head>
+<body>
+<div class="preloader">
+    <div class="inner">
+      <div class="loader">
+        <div class="trackbar">
+          <div class="loadbar"></div>
+        </div>
+      </div>
+      <!-- end loader -->
+      <div class="holder"> <span class="typewriter" id="typewriter"></span> </div>
+      <!-- end holder --> 
+    </div>
+    <!-- end inner --> 
+  </div>
+  <!-- end preloader -->
+  <div class="transition-overlay">
+    <div class="green-layer"></div>
+    <div class="black-layer"></div>
+  </div>
+  <!-- end transition-overlay -->
+  
+  <nav class="navigation-menu">
+    <div class="green-layer"></div>
+    <div class="black-layer"></div>
+    <div class="inner">
+      <ul>
+        <li><a href="index.html">Home</a>
+           <!-- <ul>
+            <li><a href="index.html">Slider</a></li>
+            <li><a href="index-video-bg.html">Video BG</a></li>
+            <li><a href="index-particles.html">Particles</a></li>
+            <li><a href="index-motion-blur.html">Motion Blur</a></li>
+            <li><a href="index-animation.html">Animation</a></li>
+          </ul> -->
+        </li>
+        <li><a href="unicord.html">About Us</a></li>
+        <li><a href="#">Portfolio</a>
+          <ul>
+            <li><a href="portfolio.html">VFX</a></li>
+            <li><a href="portfolio.html">Animation</a></li>
+            <li><a href="portfolio.html">Graphic Design</a></li>
+            <li><a href="portfolio.html">Web Development</a></li>
+            <li><a href="portfolio.html">Digital Marketing</a></li>
+          </ul>
+        </li>
+        <li><a href="news.html">News</a></li>
+        <li><a href="say-hello.html">Say Hello</a></li>
+      </ul>
+      <address>
+      Goregaon West<br>
+      Mumbai, India<br>
+      info@meclusions.com
+      </address>
+    </div>
+    <!-- end inner --> 
+  </nav>
+  <!-- end navigation-menu -->
+    <nav class="navbar">
+      <div class="logo"> <a href="index.html"><img src="images/main.png" alt="Image"></a> </div>
+      <!-- end logo -->
+      <div class="email-us">Say <a href="#"><span>hello</span>@meclusions.com</a></div>
+      <!-- end email-us -->
+      <div class="languages"> <a href="#" class="active">EN</a> <a href="#">RU</a> <a href="#">FR</a> <a href="#">ESP</a> </div>
+      <!-- end languages -->
+      <div class="sandwich-nav"> <b>MENU</b>
+        <div class="sandwich-btn circle" id="sandwich-btn" data-dist="7"> <span></span> <span></span> </div>
+        <!-- end sandwich-btn --> 
+        
+      </div>
+      <!-- end sandwich-nav --> 
+    </nav>
+  <!-- end navbar -->
+  <!-- end navbar -->
+<header class="page-header">
+ <div class="video-bg">
+ 	<video src="videos/video.mp4" autoplay muted loop></video>
+ </div>
+ <!-- end video-bg -->
+ <div class="inner">
+ 	<h2 data-text="Portfolio">Portfolio</h2>
+ 	<p>Let us take you to the tour of our work</p>
+ </div>
+ <!-- end inner -->
+  <ul class="social-media">
+    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+    <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
+    <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+    <li><a href="#"><i class="fa fa-youtube-play"></i></a></li>
+  </ul>
+  <div class="scroll-down"><b>SCROLL DOWN</b><span></span></div>
+  <!-- end scroll-down --> 
+</header>
+<!-- end page-header -->
+<div class="page-header-spacing"></div>
+<!-- end page-header-spacing -->
+<main>
+<section class="works">
+<div class="container">
+<div class="filter-bar">
+ <div class="filter-btn">
+ 	<div class="dots-menu">
+    <div class="pix"></div>
+    <div class="pix"></div>
+    <div class="pix"></div>
+    <div class="pix"></div>
+    <div class="pix"></div>
+    <div class="pix"></div>
+    <div class="pix"></div>
+    <div class="pix"></div>
+    <div class="pix"></div>
+</div>
+<!-- end dots-menu -->
+ <span>FILTER</span>
+ </div>
+ <!-- end filter-btn -->
+<ol class="works-filter">
+	<li><a href="javascript:void(0);" data-filter="*" class="current">ALL</a></li>
+	<li><a href="javascript:void(0);" data-filter=".one">VFX</a></li>
+	<li><a href="javascript:void(0);" data-filter=".two">Animation</a></li>
+	<li><a href="javascript:void(0);" data-filter=".three">Graphic Design</a></li>
+	<li><a href="javascript:void(0);" data-filter=".four">Web Design</a></li>
+	<li><a href="javascript:void(0);" data-filter=".five">Digital Marketing</a></li>
+</ol>
+ </div>
+ <!-- end filter-bar -->
+ </div>
+ <!-- end container -->
+  <ul>
+    <li class="wow fadeInUp one">
+      <figure data-tilt> <img src="images/works01.jpg" alt="Image" class="thumb">
+        <figcaption> <img src="images/logo-brand.png" alt="Image" class="brand">
+          <h3>Yellow Ginger</h3>
+          <small>UI-UX Design, WordPress</small> <a href="case-details.html">CASE DETAILS</a> </figcaption>
+      </figure>
+    </li>
+    <li class="wow fadeInUp two">
+      <figure data-tilt> <img src="images/works02.jpg" alt="Image" class="thumb">
+        <figcaption> <img src="images/logo-brand2.png" alt="Image" class="brand">
+          <h3>Red Tomato</h3>
+          <small>Web Design, HTML, Development</small> <a href="case-details.html">CASE DETAILS</a> </figcaption>
+      </figure>
+    </li>
+    <li class="wow fadeInUp three">
+      <figure data-tilt> <img src="images/works03.jpg" alt="Image" class="thumb">
+        <figcaption> <img src="images/logo-brand3.png" alt="Image" class="brand">
+          <h3>Mr. Washington</h3>
+          <small>App Development, UI-UX Design</small> <a href="case-details.html">CASE DETAILS</a> </figcaption>
+      </figure>
+    </li>
+    <li class="wow fadeInUp four">
+      <figure data-tilt> <img src="images/works04.jpg" alt="Image" class="thumb">
+        <figcaption> <img src="images/logo-brand2.png" alt="Image" class="brand">
+          <h3>House MD</h3>
+          <small>Print Design, Branding</small> <a href="case-details.html">CASE DETAILS</a> </figcaption>
+      </figure>
+    </li>
+    <li class="wow fadeInUp five">
+      <figure data-tilt> <img src="images/works05.jpg" alt="Image" class="thumb">
+        <figcaption> <img src="images/logo-brand3.png" alt="Image" class="brand">
+          <h3>Celebrity</h3>
+          <small>UI-UX Design, WordPress</small> <a href="case-details.html">CASE DETAILS</a> </figcaption>
+      </figure>
+    </li>
+    <li class="wow fadeInUp one">
+      <figure data-tilt> <img src="images/works06.jpg" alt="Image" class="thumb">
+        <figcaption> <img src="images/logo-brand3.png" alt="Image" class="brand">
+          <h3>Man in Black</h3>
+          <small>HTML, Development</small> <a href="case-details.html">CASE DETAILS</a> </figcaption>
+      </figure>
+    </li>
+    <li class="wow fadeInUp two">
+      <figure data-tilt> <img src="images/works07.jpg" alt="Image" class="thumb">
+        <figcaption> <img src="images/logo-brand.png" alt="Image" class="brand">
+          <h3>Old School</h3>
+          <small>App Design, Development</small> <a href="case-details.html">CASE DETAILS</a> </figcaption>
+      </figure>
+    </li>
+    <li class="wow fadeInUp three">
+      <figure data-tilt> <img src="images/works08.jpg" alt="Image" class="thumb">
+        <figcaption> <img src="images/logo-brand2.png" alt="Image" class="brand">
+          <h3>Paper Girl</h3>
+          <small>UI-UX Design, HTML, Development</small> <a href="case-details.html">CASE DETAILS</a> </figcaption>
+      </figure>
+    </li>
+    <li class="wow fadeInUp four">
+      <figure data-tilt> <img src="images/works09.jpg" alt="Image" class="thumb">
+        <figcaption> <img src="images/logo-brand3.png" alt="Image" class="brand">
+          <h3>Moto Wheel</h3>
+          <small>Branding, Print Design</small> <a href="case-details.html">CASE DETAILS</a> </figcaption>
+      </figure>
+    </li>
+  </ul>
+</section>
+<!-- end works -->
+<footer class="footer">
+  <div class="container"> 
+   <img src="images/logo.png" alt="Image">
+    <h2>Don't be shy and<br>
+      talk to us?</h2>
+    <h5>Say hello@unicord.com.ua </h5>
+    <ul>
+      <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+      <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+      <li><a href="#"><i class="fa fa-behance"></i></a></li>
+      <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+      <li><a href="#"><i class="fa fa-youtube-play"></i></a></li>
+    </ul>
+    <span>© 2018 Unicord | All Rights Reserved</span> </div>
+  <!-- end container --> 
+</footer>
+<!-- end footer --> 
+</main>
+<!-- end main -->
+<audio id="link" src="audio/link.mp3" preload="auto"></audio>
+<audio id="hover-audio" src="audio/hover.mp3" preload="auto"></audio>
+
+
+<!-- JS FILES --> 
+<script src="js/jquery.min.js"></script> 
+<script src="js/popper.min.js"></script> 
+<script src="js/bootstrap.min.js"></script> 
+<script src="js/swiper.min.js"></script> 
+<script src="js/wow.min.js"></script> 
+<script src="js/isotope.min.js"></script> 
+<script src="js/tilt.jquery.js"></script> 
+<script src="js/jquery.typewriter.js"></script>
+<script src='js/TweenMax.min.js'></script> 
+<script src='js/imagesloaded.pkgd.min.js'></script>    
+<script src='js/particles.min.js'></script>  
+<script src='js/jquery.parallax.min.js'></script>  
+<script src='js/motion.blur.js'></script> 
+<script src="js/scripts.js"></script> 
+
+</body>
+</html>

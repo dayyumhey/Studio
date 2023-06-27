@@ -1,0 +1,549 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="format-detection" content="telephone=no">
+<meta name="theme-color" content="#33a16e"/>
+<title>Mecluions</title>
+<meta name="author" content="Themezinho">
+<meta name="description" content="Unicord | Creative Portfolio for Freelancers & Agencies">
+<meta name="keywords" content="creative, works, showcase, portfolio, highlight, projects, parallax, agency, digital, studio, css, animation, transition, svg, html, css">
+
+<!-- SOCIAL MEDIA META -->
+<meta property="og:description" content="Unicord | Creative Portfolio for Freelancers & Agencies">
+<meta property="og:image" content="http://www.themezinho.net/unicord/preview.png">
+<meta property="og:site_name" content="unicord">
+<meta property="og:title" content="Unicord">
+<meta property="og:type" content="website">
+<meta property="og:url" content="http://www.themezinho.net/unicord">
+
+<!-- TWITTER META -->
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@unicord">
+<meta name="twitter:creator" content="@unicord">
+<meta name="twitter:title" content="unicord">
+<meta name="twitter:description" content="Unicord | Creative Portfolio for Freelancers & Agencies">
+<meta name="twitter:image" content="http://www.themezinho.net/unicord/preview.png">
+
+<!-- FAVICON FILES -->
+<link href="ico/apple-touch-icon-144-precomposed.png" rel="apple-touch-icon" sizes="144x144">
+<link href="ico/apple-touch-icon-114-precomposed.png" rel="apple-touch-icon" sizes="114x114">
+<link href="ico/apple-touch-icon-72-precomposed.png" rel="apple-touch-icon" sizes="72x72">
+<link href="ico/apple-touch-icon-57-precomposed.png" rel="apple-touch-icon">
+<link href="ico/favicon.png" rel="shortcut icon">
+
+
+<script type="text/javascript">
+  // <![CDATA[
+  var colour="skyblue"; // in addition to "random" can be set to any valid colour eg "#f0f" or "red"
+  var sparkles=330;
+  var x=ox=400;
+  var y=oy=300;
+  var swide=800;
+  var shigh=600;
+  var sleft=sdown=0;
+  var tiny=new Array();
+  var star=new Array();
+  var starv=new Array();
+  var starx=new Array();
+  var stary=new Array();
+  var tinyx=new Array();
+  var tinyy=new Array();
+  var tinyv=new Array();
+  
+  window.onload=function() { if (document.getElementById) {
+    var i, rats, rlef, rdow;
+    for (var i=0; i<sparkles; i++) {
+      var rats=createDiv(3, 3);
+      rats.style.visibility="hidden";
+      rats.style.zIndex="999";
+      document.body.appendChild(tiny[i]=rats);
+      starv[i]=0;
+      tinyv[i]=0;
+      var rats=createDiv(5, 5);
+      rats.style.backgroundColor="transparent";
+      rats.style.visibility="hidden";
+      rats.style.zIndex="999";
+      var rlef=createDiv(1, 5);
+      var rdow=createDiv(5, 1);
+      rats.appendChild(rlef);
+      rats.appendChild(rdow);
+      rlef.style.top="2px";
+      rlef.style.left="0px";
+      rdow.style.top="0px";
+      rdow.style.left="2px";
+      document.body.appendChild(star[i]=rats);
+    }
+    set_width();
+    sparkle();
+  }}
+  
+  function sparkle() {
+    var c;
+    if (Math.abs(x-ox)>1 || Math.abs(y-oy)>1) {
+      ox=x;
+      oy=y;
+      for (c=0; c<sparkles; c++) if (!starv[c]) {
+        star[c].style.left=(starx[c]=x)+"px";
+        star[c].style.top=(stary[c]=y+1)+"px";
+        star[c].style.clip="rect(0px, 5px, 5px, 0px)";
+        star[c].childNodes[0].style.backgroundColor=star[c].childNodes[1].style.backgroundColor=(colour=="random")?newColour():colour;
+        star[c].style.visibility="visible";
+        starv[c]=50;
+        break;
+      }
+    }
+    for (c=0; c<sparkles; c++) {
+      if (starv[c]) update_star(c);
+      if (tinyv[c]) update_tiny(c);
+    }
+    setTimeout("sparkle()", 40);
+  }
+  
+  function update_star(i) {
+    if (--starv[i]==25) star[i].style.clip="rect(1px, 4px, 4px, 1px)";
+    if (starv[i]) {
+      stary[i]+=1+Math.random()*3;
+      starx[i]+=(i%5-2)/5;
+      if (stary[i]<shigh+sdown) {
+        star[i].style.top=stary[i]+"px";
+        star[i].style.left=starx[i]+"px";
+      }
+      else {
+        star[i].style.visibility="hidden";
+        starv[i]=0;
+        return;
+      }
+    }
+    else {
+      tinyv[i]=50;
+      tiny[i].style.top=(tinyy[i]=stary[i])+"px";
+      tiny[i].style.left=(tinyx[i]=starx[i])+"px";
+      tiny[i].style.width="2px";
+      tiny[i].style.height="2px";
+      tiny[i].style.backgroundColor=star[i].childNodes[0].style.backgroundColor;
+      star[i].style.visibility="hidden";
+      tiny[i].style.visibility="visible"
+    }
+  }
+  
+  function update_tiny(i) {
+    if (--tinyv[i]==25) {
+      tiny[i].style.width="1px";
+      tiny[i].style.height="1px";
+    }
+    if (tinyv[i]) {
+      tinyy[i]+=1+Math.random()*3;
+      tinyx[i]+=(i%5-2)/5;
+      if (tinyy[i]<shigh+sdown) {
+        tiny[i].style.top=tinyy[i]+"px";
+        tiny[i].style.left=tinyx[i]+"px";
+      }
+      else {
+        tiny[i].style.visibility="hidden";
+        tinyv[i]=0;
+        return;
+      }
+    }
+    else tiny[i].style.visibility="hidden";
+  }
+  
+  document.onmousemove=mouse;
+  function mouse(e) {
+    if (e) {
+      y=e.pageY;
+      x=e.pageX;
+    }
+    else {
+      set_scroll();
+      y=event.y+sdown;
+      x=event.x+sleft;
+    }
+  }
+  
+  window.onscroll=set_scroll;
+  function set_scroll() {
+    if (typeof(self.pageYOffset)=='number') {
+      sdown=self.pageYOffset;
+      sleft=self.pageXOffset;
+    }
+    else if (document.body && (document.body.scrollTop || document.body.scrollLeft)) {
+      sdown=document.body.scrollTop;
+      sleft=document.body.scrollLeft;
+    }
+    else if (document.documentElement && (document.documentElement.scrollTop || document.documentElement.scrollLeft)) {
+      sleft=document.documentElement.scrollLeft;
+      sdown=document.documentElement.scrollTop;
+    }
+    else {
+      sdown=0;
+      sleft=0;
+    }
+  }
+  
+  window.onresize=set_width;
+  function set_width() {
+    var sw_min=999999;
+    var sh_min=999999;
+    if (document.documentElement && document.documentElement.clientWidth) {
+      if (document.documentElement.clientWidth>0) sw_min=document.documentElement.clientWidth;
+      if (document.documentElement.clientHeight>0) sh_min=document.documentElement.clientHeight;
+    }
+    if (typeof(self.innerWidth)=='number' && self.innerWidth) {
+      if (self.innerWidth>0 && self.innerWidth<sw_min) sw_min=self.innerWidth;
+      if (self.innerHeight>0 && self.innerHeight<sh_min) sh_min=self.innerHeight;
+    }
+    if (document.body.clientWidth) {
+      if (document.body.clientWidth>0 && document.body.clientWidth<sw_min) sw_min=document.body.clientWidth;
+      if (document.body.clientHeight>0 && document.body.clientHeight<sh_min) sh_min=document.body.clientHeight;
+    }
+    if (sw_min==999999 || sh_min==999999) {
+      sw_min=800;
+      sh_min=600;
+    }
+    swide=sw_min;
+    shigh=sh_min;
+  }
+  
+  function createDiv(height, width) {
+    var div=document.createElement("div");
+    div.style.position="absolute";
+    div.style.height=height+"px";
+    div.style.width=width+"px";
+    div.style.overflow="hidden";
+    return (div);
+  }
+  
+  function newColour() {
+    var c=new Array();
+    c[0]=255;
+    c[1]=Math.floor(Math.random()*256);
+    c[2]=Math.floor(Math.random()*(256-c[1]/2));
+    c.sort(function(){return (0.5 - Math.random());});
+    return ("rgb("+c[0]+", "+c[1]+", "+c[2]+")");
+  }
+  // ]]>
+  </script>
+
+<!-- CSS FILES -->
+<link rel="stylesheet" href="css/font-awesome.min.css">
+<link rel="stylesheet" href="css/animate.min.css">
+<link rel="stylesheet" href="css/swiper.min.css">
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="css/style.css">
+
+<link rel="stylesheet" href="css/main.css">
+
+	<script src="libs/gsap/gsap.min.js" defer></script>
+	<script src="libs/gsap/ScrollTrigger.min.js" defer></script>
+	<script src="libs/gsap/ScrollSmoother.min.js" defer></script>
+
+	<script src="js/app.js" defer></script>
+</head>
+<body>
+<div class="preloader">
+  <div class="inner">
+    <div class="loader">
+      <div class="trackbar">
+        <div class="loadbar"></div>
+      </div>
+    </div>
+    <!-- end loader -->
+    <div class="holder"> <span class="typewriter" id="typewriter"></span> </div>
+    <!-- end holder --> 
+  </div>
+  <!-- end inner --> 
+</div>
+<!-- end preloader -->
+<div class="transition-overlay">
+  <div class="green-layer"></div>
+  <div class="black-layer"></div>
+</div>
+<!-- end transition-overlay -->
+<nav class="navigation-menu">
+  <div class="green-layer"></div>
+  <div class="black-layer"></div>
+  <div class="inner">
+    <ul>
+      <li><a href="index.html">Home</a>
+      	 <!-- <ul>
+          <li><a href="index.html">Slider</a></li>
+          <li><a href="index-video-bg.html">Video BG</a></li>
+          <li><a href="index-particles.html">Particles</a></li>
+          <li><a href="index-motion-blur.html">Motion Blur</a></li>
+          <li><a href="index-animation.html">Animation</a></li>
+        </ul> -->
+      </li>
+      <li><a href="unicord.html">About Us</a></li>
+      <li><a href="#">Portfolio</a>
+        <ul>
+          <li><a href="portfolio.html">VFX</a></li>
+          <li><a href="portfolio.html">Animation</a></li>
+          <li><a href="portfolio.html">Graphic Design</a></li>
+          <li><a href="portfolio.html">Web Development</a></li>
+          <li><a href="portfolio.html">Digital Marketing</a></li>
+        </ul>
+      </li>
+      <li><a href="news.html">News</a></li>
+      <li><a href="say-hello.html">Say Hello</a></li>
+    </ul>
+    <address>
+    Goregaon West<br>
+    Mumbai, India<br>
+    info@meclusions.com
+    </address>
+  </div>
+  <!-- end inner --> 
+</nav>  
+<!-- end navigation-menu -->
+  <nav class="navbar">
+    <div class="logo"> <a href="index.html"><img src="./Meclusions Logo and Fairy element for Official Website/Meclusions_Logo_Cleanedup_Final_Fairy_Edited_Blue.png" alt="Image"></a> </div>
+    <!-- end logo -->
+    <div class="email-us">Say <a href="#"><span>hello</span>@meclusions.com</a></div>
+    <!-- end email-us -->
+    <div class="languages"> <a href="#" class="active">EN</a> <a href="#">RU</a> </div>
+    <!-- end languages -->
+    <div class="sandwich-nav"> <b>MENU</b>
+      <div class="sandwich-btn circle" id="sandwich-btn" data-dist="7"> <span></span> <span></span> </div>
+      <!-- end sandwich-btn --> 
+      
+    </div>
+    <!-- end sandwich-nav --> 
+  </nav>
+  <!-- end navbar -->
+
+  <ul class="social-media">
+    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+    <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
+    <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+    <li><a href="#"><i class="fa fa-youtube-play"></i></a></li>
+  </ul>
+  <div class="scroll-down"><b>SCROLL DOWN</b><span></span></div>
+
+
+<div class="wrapper">
+		<div class="content">
+
+			<header class="main-header">
+				<div class="layers">
+					<div class="layer__header">
+						<div class="layers__caption">meclusions </div>
+						<div class="layers__title">Fairy Forest</div>
+					</div>
+					<div class="layer layers__base" style="background-image: url(img/layer-base.png);"></div>
+					<div class="layer layers__middle" style="background-image: url(img/layer-middle.png);"></div>
+					<div class="layer layers__front" style="background-image: url(img/layer-front.png);"></div>
+				</div>
+			</header>
+		
+			<article class="main-article" style="background-image: url(img/dungeon.jpg);">
+				<div class="main-article__content">
+					<h2 class="main-article__header">fantasy you dream we deliver</h2>
+					<p class="main-article__paragraph">Making Every Pixel Remarkable
+            Beating heavy deadlines, affordable budget and high spirited team
+            makes us your go to solution for any creative project
+            from simple graphics design to animation & vfx </p>
+				</div>
+			</article>
+
+		</div>
+	</div>
+
+<!-- end header -->
+<div class="header-spacing"></div>
+<!-- end header-spacing -->
+<main>
+  <section class="works">
+    <ul>
+      <li class="wow fadeInUp">
+        <figure data-tilt> <img src="images/home/graphics.jpg" alt="Image" class="thumb">
+          <figcaption> 
+            <!-- <img src="images/logo-brand.png" alt="Image" class="brand"> -->
+            <h3>Graphic Design</h3>
+            <small>UI-UX Design, Adobe</small> <a href="case-details.html">Know More</a> </figcaption>
+        </figure>
+      </li>
+      <li class="wow fadeInUp">
+        <figure data-tilt> <img src="images/home/2d.gif" alt="Image" class="thumb" loop="infinite">
+          <figcaption> 
+            <!-- <img src="images/logo-brand2.png" alt="Image" class="brand"> -->
+            <h3>2D Animation</h3>
+            <small>Adobe, After Effects</small> <a href="case-details.html">Know More</a> </figcaption>
+        </figure>
+      </li>
+      <li class="wow fadeInUp">
+        <figure data-tilt> <img src="images/home/character.jpg" alt="Image" class="thumb">
+          <figcaption> 
+            <!-- <img src="images/logo-brand3.png" alt="Image" class="brand"> -->
+            <h3>Characters</h3>
+            <small>Creative, Adobe</small> <a href="case-details.html">Know More</a> </figcaption>
+        </figure>
+      </li>
+      <li class="wow fadeInUp">
+        <figure data-tilt> <img src="images/home/3d.gif" alt="Image" class="thumb" loop="infinite">
+          <figcaption> 
+            <!-- <img src="images/logo-brand2.png" alt="Image" class="brand"> -->
+            <h3>3D Animation</h3>
+            <small>Maya, Ricca, Modelling</small> <a href="case-details.html">Know More</a> </figcaption>
+        </figure>
+      </li>
+      <li class="wow fadeInUp">
+        <figure data-tilt> <img src="images/home/logo.jpg" alt="Image" class="thumb">
+          <figcaption> 
+            <!-- <img src="images/logo-brand3.png" alt="Image" class="brand"> -->
+            <h3>Logo Design</h3>
+            <small>Print Design, Branding</small> <a href="case-details.html">Know More</a> </figcaption>
+        </figure>
+      </li>
+      <li class="wow fadeInUp">
+        <figure data-tilt> <img src="images/home/3dmodel.jpg" alt="Image" class="thumb">
+          <figcaption> 
+            <!-- <img src="images/logo-brand3.png" alt="Image" class="brand"> -->
+            <h3>Model Design</h3>
+            <small>Maya, Model, Creative</small> <a href="case-details.html">Know More</a> </figcaption>
+        </figure>
+      </li>
+      <li class="wow fadeInUp">
+        <figure data-tilt> <img src="images/home/website.jpg" alt="Image" class="thumb">
+          <figcaption> 
+            <!-- <img src="images/logo-brand.png" alt="Image" class="brand"> -->
+            <h3>Website Development</h3>
+            <small>Web Design, Development, Animation</small> <a href="case-details.html">Know More</a> </figcaption>
+        </figure>
+      </li>
+      <li class="wow fadeInUp">
+        <figure data-tilt> <img src="images/home/2dpaint.jpg" alt="Image" class="thumb">
+          <figcaption> 
+            <!-- <img src="images/logo-brand2.png" alt="Image" class="brand"> -->
+            <h3>2D Painting</h3>
+            <small>Adobe, Model, Creative</small> <a href="case-details.html">Know More</a> </figcaption>
+        </figure>
+      </li>
+      <li class="wow fadeInUp">
+        <figure data-tilt> <img src="images/home/vfx.gif" alt="Image" class="thumb">
+          <figcaption> 
+            <!-- <img src="images/logo-brand3.png" alt="Image" class="brand"> -->
+            <h3>VFX</h3>
+            <small>Visual effects, Creation</small> <a href="case-details.html">Know More</a> </figcaption>
+        </figure>
+      </li>
+    </ul>
+  </section>
+  <!-- end works -->
+  <section class="features-content">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-5 wow fadeInLeft">
+          <h2>Benefits with Meclusions</h2>
+          <h6>We deliver best quality of 3D Product Designing and Animation for Various Industry across the globe.</h6>
+        </div>
+        <!-- end col-5 -->
+        <div class="col-lg-7">
+          <div class="row inner">
+            <div class="col-md-4 wow fadeInUp"> <img src="images/homeIcon/dataPrivacy.png" alt="Image" style="height: 100px; width: 100px;">
+              <h4>Data Privacy</h4>
+              <p>Strictly amongst all this tops the list of our studios policy to keep clients entire project under strict vigil</p>
+              <!-- <a href="#">LEARN MORE</a>  -->
+            </div>
+            <!-- end col-4 -->
+            <div class="col-md-4 wow fadeInUp"> <img src="images/homeIcon/deadline.png" alt="Image" style="height: 100px; width: 100px;">
+              <h4>Deadlines</h4>
+              <p>Closing the deadlines on its prescheduled time & dates is one of the most crucial priority</p>
+              <!-- <a href="#">LEARN MORE</a>  -->
+            </div>
+            <!-- end col-4 -->
+            <div class="col-md-4 wow fadeInUp"> <img src="images/homeIcon/teamSpirit.png" alt="Image" style="height: 100px; width: 100px;">
+              <h4>Team Spirit</h4>
+              <p>Nurturing healthy studio environment a place of comfort to work at for our hard working talented artist plays utmost priority</p>
+              <!-- <a href="#">LEARN MORE</a>  -->
+            </div>
+            <!-- end col-4 -->
+            <div class="col-md-4 wow fadeInUp"> <img src="images/homeIcon/support.png" alt="Image" style="height: 100px; width: 100px;">
+              <h4>Support</h4>
+              <p>Providing best support to our client, Thereby making their journey smooth & hassle free</p>
+              <!-- <a href="#">LEARN MORE</a>  -->
+            </div>
+            <!-- end col-4 -->
+            <div class="col-md-4 wow fadeInUp"> <img src="images/homeIcon/budget.png" alt="Image" style="height: 100px; width: 80px;">
+              <h4>Right Budget</h4>
+              <p>Right Bidding for projects, Planning most affordable budget for corporates, films to individual client</p>
+              <!-- <a href="#">LEARN MORE</a>  -->
+            </div>
+            <!-- end col-4 --> 
+            <div class="col-md-4 wow fadeInUp"> <img src="images/homeIcon/talent.png" alt="Image" style="height: 100px; width: 100px;">
+              <h4>Right Talent</h4>
+              <p>Hiring right artist makes or breaks the project, We pick experienced & suitable artist</p>
+              <!-- <a href="#">LEARN MORE</a>  -->
+            </div>
+            <!-- end col-4 -->
+          </div>
+          <!-- end row inner --> 
+        </div>
+        <!-- end col-7 --> 
+      </div>
+      <!-- end row --> 
+    </div>
+    <!-- end container --> 
+  </section>
+  <!-- end features-content -->
+  <section class="full-media-content bg-image" data-background="images/home/bgSir.gif">
+    <div class="sides">
+      <figure class="wow fadeInLeft"><img src="images/home/mauliksir.jpg" alt="Image"></figure>
+    </div>
+    <!-- end sides -->
+    <div class="sides inner-content">
+      <div class="inner wow fadeInUp">
+        <h5>Owner Of Meclusions</h5>
+        <h2>Mr. Maulik R. Sonpar</h2>
+        <p>Having started his journey as a budding artist, I quickly realized my love for transforming imagination into reality through 
+          cutting-edge technology. With an exceptional eye for detail and a natural flair for creativity,
+          I honed my skills in various disciplines, including 3D modeling, animation, and compositing.</p>
+        <!-- <a href="#">TAKE A LOOK</a> </div> -->
+      <!-- end inner --> 
+    </div>
+    <!-- end sides --> 
+  </section>
+  <!-- end full-media-content -->
+  <footer class="footer">
+    <div class="container wow fadeIn"> 
+     <img src="images/logo.png" alt="Image">
+      <h2>Don't be shy and<br>
+        talk to us?</h2>
+      <h5>Say info@meclusions.com </h5>
+      <ul>
+        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+        <li><a href="#"><i class="fa fa-behance"></i></a></li>
+        <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+        <li><a href="#"><i class="fa fa-youtube-play"></i></a></li>
+      </ul>
+      <span>© 2023 Meclusions | All Rights Reserved</span> </div>
+    <!-- end container --> 
+  </footer>
+  <!-- end footer --> 
+  </main>
+<!-- end main -->
+<audio id="link" src="audio/link.mp3" preload="auto"></audio>
+<audio id="hover-audio" src="audio/hover.mp3" preload="auto"></audio>
+
+
+<!-- JS FILES --> 
+<script src="js/jquery.min.js"></script> 
+<script src="js/popper.min.js"></script> 
+<script src="js/bootstrap.min.js"></script> 
+<script src="js/swiper.min.js"></script> 
+<script src="js/wow.min.js"></script> 
+<script src="js/isotope.min.js"></script> 
+<script src="js/tilt.jquery.js"></script> 
+<script src="js/jquery.typewriter.js"></script>
+<script src='js/TweenMax.min.js'></script> 
+<script src='js/imagesloaded.pkgd.min.js'></script>    
+<script src='js/particles.min.js'></script>  
+<script src='js/jquery.parallax.min.js'></script>  
+<script src='js/motion.blur.js'></script> 
+<script src="js/scripts.js"></script> 
+
+</body>
+</html>

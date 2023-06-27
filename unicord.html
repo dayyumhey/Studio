@@ -1,0 +1,635 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="format-detection" content="telephone=no">
+<meta name="theme-color" content="#33a16e"/>
+<title>Meclusions | About Us
+</title>
+<meta name="author" content="Themezinho">
+<meta name="description" content="Unicord | Creative Portfolio for Freelancers & Agencies">
+<meta name="keywords" content="creative, works, showcase, portfolio, highlight, projects, parallax, agency, digital, studio, css, animation, transition, svg, html, css">
+
+<!-- SOCIAL MEDIA META -->
+<meta property="og:description" content="Unicord | Creative Portfolio for Freelancers & Agencies">
+<meta property="og:image" content="http://www.themezinho.net/unicord/preview.png">
+<meta property="og:site_name" content="unicord">
+<meta property="og:title" content="Unicord">
+<meta property="og:type" content="website">
+<meta property="og:url" content="http://www.themezinho.net/unicord">
+
+<!-- TWITTER META -->
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@unicord">
+<meta name="twitter:creator" content="@unicord">
+<meta name="twitter:title" content="unicord">
+<meta name="twitter:description" content="Unicord | Creative Portfolio for Freelancers & Agencies">
+<meta name="twitter:image" content="http://www.themezinho.net/unicord/preview.png">
+
+<!-- FAVICON FILES -->
+<link href="ico/apple-touch-icon-144-precomposed.png" rel="apple-touch-icon" sizes="144x144">
+<link href="ico/apple-touch-icon-114-precomposed.png" rel="apple-touch-icon" sizes="114x114">
+<link href="ico/apple-touch-icon-72-precomposed.png" rel="apple-touch-icon" sizes="72x72">
+<link href="ico/apple-touch-icon-57-precomposed.png" rel="apple-touch-icon">
+<link href="ico/favicon.png" rel="shortcut icon">
+
+<!-- CSS FILES -->
+<link rel="stylesheet" href="css/font-awesome.min.css">
+<link rel="stylesheet" href="css/animate.min.css">
+<link rel="stylesheet" href="css/swiper.min.css">
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="css/style.css">
+
+<script type="text/javascript">
+    // <![CDATA[
+    var colour="random"; // in addition to "random" can be set to any valid colour eg "#f0f" or "red"
+    var sparkles=50;
+    var x=ox=400;
+    var y=oy=300;
+    var swide=800;
+    var shigh=600;
+    var sleft=sdown=0;
+    var tiny=new Array();
+    var star=new Array();
+    var starv=new Array();
+    var starx=new Array();
+    var stary=new Array();
+    var tinyx=new Array();
+    var tinyy=new Array();
+    var tinyv=new Array();
+    
+    window.onload=function() { if (document.getElementById) {
+      var i, rats, rlef, rdow;
+      for (var i=0; i<sparkles; i++) {
+        var rats=createDiv(3, 3);
+        rats.style.visibility="hidden";
+        rats.style.zIndex="999";
+        document.body.appendChild(tiny[i]=rats);
+        starv[i]=0;
+        tinyv[i]=0;
+        var rats=createDiv(5, 5);
+        rats.style.backgroundColor="transparent";
+        rats.style.visibility="hidden";
+        rats.style.zIndex="999";
+        var rlef=createDiv(1, 5);
+        var rdow=createDiv(5, 1);
+        rats.appendChild(rlef);
+        rats.appendChild(rdow);
+        rlef.style.top="2px";
+        rlef.style.left="0px";
+        rdow.style.top="0px";
+        rdow.style.left="2px";
+        document.body.appendChild(star[i]=rats);
+      }
+      set_width();
+      sparkle();
+    }}
+    
+    function sparkle() {
+      var c;
+      if (Math.abs(x-ox)>1 || Math.abs(y-oy)>1) {
+        ox=x;
+        oy=y;
+        for (c=0; c<sparkles; c++) if (!starv[c]) {
+          star[c].style.left=(starx[c]=x)+"px";
+          star[c].style.top=(stary[c]=y+1)+"px";
+          star[c].style.clip="rect(0px, 5px, 5px, 0px)";
+          star[c].childNodes[0].style.backgroundColor=star[c].childNodes[1].style.backgroundColor=(colour=="random")?newColour():colour;
+          star[c].style.visibility="visible";
+          starv[c]=50;
+          break;
+        }
+      }
+      for (c=0; c<sparkles; c++) {
+        if (starv[c]) update_star(c);
+        if (tinyv[c]) update_tiny(c);
+      }
+      setTimeout("sparkle()", 40);
+    }
+    
+    function update_star(i) {
+      if (--starv[i]==25) star[i].style.clip="rect(1px, 4px, 4px, 1px)";
+      if (starv[i]) {
+        stary[i]+=1+Math.random()*3;
+        starx[i]+=(i%5-2)/5;
+        if (stary[i]<shigh+sdown) {
+          star[i].style.top=stary[i]+"px";
+          star[i].style.left=starx[i]+"px";
+        }
+        else {
+          star[i].style.visibility="hidden";
+          starv[i]=0;
+          return;
+        }
+      }
+      else {
+        tinyv[i]=50;
+        tiny[i].style.top=(tinyy[i]=stary[i])+"px";
+        tiny[i].style.left=(tinyx[i]=starx[i])+"px";
+        tiny[i].style.width="2px";
+        tiny[i].style.height="2px";
+        tiny[i].style.backgroundColor=star[i].childNodes[0].style.backgroundColor;
+        star[i].style.visibility="hidden";
+        tiny[i].style.visibility="visible"
+      }
+    }
+    
+    function update_tiny(i) {
+      if (--tinyv[i]==25) {
+        tiny[i].style.width="1px";
+        tiny[i].style.height="1px";
+      }
+      if (tinyv[i]) {
+        tinyy[i]+=1+Math.random()*3;
+        tinyx[i]+=(i%5-2)/5;
+        if (tinyy[i]<shigh+sdown) {
+          tiny[i].style.top=tinyy[i]+"px";
+          tiny[i].style.left=tinyx[i]+"px";
+        }
+        else {
+          tiny[i].style.visibility="hidden";
+          tinyv[i]=0;
+          return;
+        }
+      }
+      else tiny[i].style.visibility="hidden";
+    }
+    
+    document.onmousemove=mouse;
+    function mouse(e) {
+      if (e) {
+        y=e.pageY;
+        x=e.pageX;
+      }
+      else {
+        set_scroll();
+        y=event.y+sdown;
+        x=event.x+sleft;
+      }
+    }
+    
+    window.onscroll=set_scroll;
+    function set_scroll() {
+      if (typeof(self.pageYOffset)=='number') {
+        sdown=self.pageYOffset;
+        sleft=self.pageXOffset;
+      }
+      else if (document.body && (document.body.scrollTop || document.body.scrollLeft)) {
+        sdown=document.body.scrollTop;
+        sleft=document.body.scrollLeft;
+      }
+      else if (document.documentElement && (document.documentElement.scrollTop || document.documentElement.scrollLeft)) {
+        sleft=document.documentElement.scrollLeft;
+        sdown=document.documentElement.scrollTop;
+      }
+      else {
+        sdown=0;
+        sleft=0;
+      }
+    }
+    
+    window.onresize=set_width;
+    function set_width() {
+      var sw_min=999999;
+      var sh_min=999999;
+      if (document.documentElement && document.documentElement.clientWidth) {
+        if (document.documentElement.clientWidth>0) sw_min=document.documentElement.clientWidth;
+        if (document.documentElement.clientHeight>0) sh_min=document.documentElement.clientHeight;
+      }
+      if (typeof(self.innerWidth)=='number' && self.innerWidth) {
+        if (self.innerWidth>0 && self.innerWidth<sw_min) sw_min=self.innerWidth;
+        if (self.innerHeight>0 && self.innerHeight<sh_min) sh_min=self.innerHeight;
+      }
+      if (document.body.clientWidth) {
+        if (document.body.clientWidth>0 && document.body.clientWidth<sw_min) sw_min=document.body.clientWidth;
+        if (document.body.clientHeight>0 && document.body.clientHeight<sh_min) sh_min=document.body.clientHeight;
+      }
+      if (sw_min==999999 || sh_min==999999) {
+        sw_min=800;
+        sh_min=600;
+      }
+      swide=sw_min;
+      shigh=sh_min;
+    }
+    
+    function createDiv(height, width) {
+      var div=document.createElement("div");
+      div.style.position="absolute";
+      div.style.height=height+"px";
+      div.style.width=width+"px";
+      div.style.overflow="hidden";
+      return (div);
+    }
+    
+    function newColour() {
+      var c=new Array();
+      c[0]=255;
+      c[1]=Math.floor(Math.random()*256);
+      c[2]=Math.floor(Math.random()*(256-c[1]/2));
+      c.sort(function(){return (0.5 - Math.random());});
+      return ("rgb("+c[0]+", "+c[1]+", "+c[2]+")");
+    }
+    // ]]>
+    </script>
+
+</head>
+<body>
+  <div class="preloader">
+    <div class="inner">
+      <div class="loader">
+        <div class="trackbar">
+          <div class="loadbar"></div>
+        </div>
+      </div>
+      <!-- end loader -->
+      <div class="holder"> <span class="typewriter" id="typewriter"></span> </div>
+      <!-- end holder --> 
+    </div>
+    <!-- end inner --> 
+  </div>
+  <!-- end preloader -->
+  <div class="transition-overlay">
+    <div class="green-layer"></div>
+    <div class="black-layer"></div>
+  </div>
+  <!-- end transition-overlay -->
+  <nav class="navigation-menu">
+    <div class="green-layer"></div>
+    <div class="black-layer"></div>
+    <div class="inner">
+      <ul>
+        <li><a href="index.html">Home</a>
+           <!-- <ul>
+            <li><a href="index.html">Slider</a></li>
+            <li><a href="index-video-bg.html">Video BG</a></li>
+            <li><a href="index-particles.html">Particles</a></li>
+            <li><a href="index-motion-blur.html">Motion Blur</a></li>
+            <li><a href="index-animation.html">Animation</a></li>
+          </ul> -->
+        </li>
+        <li><a href="unicord.html">About Us</a></li>
+        <li><a href="#">Portfolio</a>
+          <ul>
+            <li><a href="portfolio.html">VFX</a></li>
+            <li><a href="portfolio.html">Animation</a></li>
+            <li><a href="portfolio.html">Graphic Design</a></li>
+            <li><a href="portfolio.html">Web Development</a></li>
+            <li><a href="portfolio.html">Digital Marketing</a></li>
+          </ul>
+        </li>
+        <li><a href="news.html">News</a></li>
+        <li><a href="say-hello.html">Say Hello</a></li>
+      </ul>
+      <address>
+      Goregaon West<br>
+      Mumbai, India<br>
+      info@meclusions.com
+      </address>
+    </div>
+    <!-- end inner --> 
+  </nav>
+  <!-- end navigation-menu -->
+    <nav class="navbar">
+      <div class="logo"> <a href="index.html"><img src="images/main.png" alt="Image"></a> </div>
+      <!-- end logo -->
+      <div class="email-us">Say <a href="#"><span>hello</span>@meclusions.com</a></div>
+      <!-- end email-us -->
+      <div class="languages"> <a href="#" class="active">EN</a> <a href="#">RU</a> </div>
+      <!-- end languages -->
+      <div class="sandwich-nav"> <b>MENU</b>
+        <div class="sandwich-btn circle" id="sandwich-btn" data-dist="7"> <span></span> <span></span> </div>
+        <!-- end sandwich-btn --> 
+        
+      </div>
+      <!-- end sandwich-nav --> 
+    </nav>
+  <!-- end navbar -->
+<header class="page-header">
+ <div class="video-bg">
+ 	<video src="videos/video.mp4" autoplay muted loop></video>
+ </div>
+ <!-- end video-bg -->
+ <div class="inner">
+ 	<h2 data-text="About Us">About Us</h2>
+ 	<p>We work in an integral manner and address projects in the following dimensions.</p>
+ </div>
+ <!-- end inner -->
+  <ul class="social-media">
+    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+    <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
+    <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+    <li><a href="#"><i class="fa fa-youtube-play"></i></a></li>
+  </ul>
+  <div class="scroll-down"><b>SCROLL DOWN</b><span></span></div>
+  <!-- end scroll-down --> 
+</header>
+<!-- end page-header -->
+<div class="page-header-spacing"></div>
+<!-- end page-header-spacing -->
+<main>
+<section class="introduction">
+	<div class="container">
+	<div class="row">
+		<div class="col-lg-5">
+			<h2>Who are we?</h2>
+		<h6>Glorify your journey with us</h6>
+		</div>
+		<!-- end col-5 -->
+		<div class="col-lg-7">
+		  <h4>Meclusions is a studio designed by professionals to serve and render best & International quality design & video based services to professionals, So In short Meclusions is by “professionals for professionals” (of Various Industry)</h4>
+      <p>Meclusions is a creatively intelligent design studio, with a dedicated and innovative approach to world class graphic designs,
+        animation and visual effects to help meet the exact creative needs for you and your company’s brand.</p>
+      <p>Meclusions works to create a unique and spectacular experience & final outputs for all of our clients. 
+        We seek to provide our potential customers with the help they need, while doing our best to sustain reliability and hard work when it comes 
+        to working with you on any professional level.
+        We leave no stone unturned to deliver International Quality Final Product.</p>
+      <p>We Believe in long lasting relationships and to develop a network of satisfied clients across the globe which in return rewards us with more 
+        healthy and substantial business and name. We'll ensure you always get the best Digital Service.</p>
+      <p>Producing notable, original work requires more than a strategy, beautiful design, well structured development or a responsive layout. 
+        Remarkable work is created only when together, with our clients, we follow these three principles</p>
+    </div>
+		<!-- end col-7 -->
+		</div>
+		<!-- end row -->
+	</div>
+	<!-- end container -->
+</section>
+<!-- end introduction -->
+<section class="our-team">
+  <div class="container">
+    <h1 style="text-align: center;"><b>Our Precious Team</b></h1><br>
+  	<div class="row no-gutters">
+  		<div class="col-lg-6 col-md-6">
+  			<figure>
+  				<img src="images/team/mauliksir.jpg" alt="Image">
+  				<figcaption>
+  					<h4>Maulik Sonpar</h4>
+  					<small>CEO</small>
+  				</figcaption>
+  			</figure>
+  		</div>
+  		<!-- end col-3 -->
+      <div class="col-lg-6 col-md-6">
+  			<figure>
+  				<img src="images/team/sandeshjpg.jpg" alt="Image">
+  				<figcaption>
+  					<h4>Sandesh Kante</h4>
+  					<small>3D Art Director</small>
+  				</figcaption>
+  			</figure>
+  		</div>
+  		<!-- end col-3 -->
+      <div class="col-lg-4 col-md-6">
+  			<figure>
+  				<img src="images/team/abhishek.jpg" alt="Image">
+  				<figcaption>
+  					<h4>Abhishek Shinde</h4>
+  					<small>VFX Artist</small>
+  				</figcaption>
+  			</figure>
+  		</div>
+  		<!-- end col-3 -->
+  		<div class="col-lg-4 col-md-6">
+  			<figure>
+  				<img src="images/team/nishant.jpg" alt="Image">
+  				<figcaption>
+  					<h4>Nishant Bhanushali</h4>
+  					<small>VFX Artist</small>
+  				</figcaption>
+  			</figure>
+  		</div>
+  		<!-- end col-3 -->
+  		<div class="col-lg-4 col-md-6">
+  			<figure>
+  				<img src="images/team/pranali.jpg" alt="Image">
+  				<figcaption>
+  					<h4>Pranali Sawant</h4>
+  					<small>Graphic Designer</small>
+  				</figcaption>
+  			</figure>
+  		</div>
+  		<!-- end col-3 -->
+  		<div class="col-lg-4 col-md-6">
+  			<figure>
+  				<img src="images/team/vandana.jpg" alt="Image">
+  				<figcaption>
+  					<h4>Vandana Maurya</h4>
+  					<small>Graphic Designer</small>
+  				</figcaption>
+  			</figure>
+  		</div>
+  		<!-- end col-3 -->
+      <div class="col-lg-4 col-md-6">
+  			<figure>
+  				<img src="images/team/omkar.jpg" alt="Image">
+  				<figcaption>
+  					<h4>Omkar Yadav</h4>
+  					<small>2D Artist</small>
+  				</figcaption>
+  			</figure>
+  		</div>
+  		<!-- end col-3 -->
+  		<div class="col-lg-4 col-md-6">
+  			<figure>
+  				<img src="images/team/reema.jpg" alt="Image">
+  				<figcaption>
+  					<h4>Reema Sawant</h4>
+  					<small>3D Artist</small>
+  				</figcaption>
+  			</figure>
+  		</div>
+  		<!-- end col-3 -->
+  		<div class="col-lg-4 col-md-6">
+  			<figure>
+  				<img src="images/team/kavish.jpg" alt="Image">
+  				<figcaption>
+  					<h4>Kavish Makwana</h4>
+  					<small>3D Artist</small>
+  				</figcaption>
+  			</figure>
+  		</div>
+  		<!-- end col-3 -->
+  		<div class="col-lg-4 col-md-6">
+  			<figure>
+  				<img src="images/team/chirag.jpg" alt="Image">
+  				<figcaption>
+  					<h4>Chirag Thakur</h4>
+  					<small>Digital Marketing</small>
+  				</figcaption>
+  			</figure>
+  		</div>
+  		<!-- end col-3 -->
+      <div class="col-lg-4 col-md-6">
+  			<figure>
+  				<img src="images/team/arpita.jpg" alt="Image">
+  				<figcaption>
+  					<h4>Arpita Wankhade</h4>
+  					<small>Content Writer</small>
+  				</figcaption>
+  			</figure>
+  		</div>
+  		<!-- end col-3 -->
+  		<div class="col-lg-4 col-md-6">
+  			<figure>
+  				<img src="images/team/arpita.jpg" alt="Image">
+  				<figcaption>
+  					<h4>Dev Patel</h4>
+  					<small>Web Developer</small>
+  				</figcaption>
+  			</figure>
+  		</div>
+  		<!-- end col-3 -->
+      <div class="col-lg-4 col-md-6">
+  			<figure>
+  				<img src="images/team/arpita.jpg" alt="Image">
+  				<figcaption>
+  					<h4>Krisha Shah</h4>
+  					<small>Web Developer</small>
+  				</figcaption>
+  			</figure>
+  		</div>
+  		<!-- end col-3 -->
+  	</div>
+  	<!-- end row -->
+  </div>
+  <!-- end container -->
+</section>
+<!-- end our-team -->
+<section class="listing-content">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-2">
+				<h3>Awards</h3>
+			</div>
+			<!-- end col-2 -->
+			<div class="col-md-4 mobile-spacing">
+				<ul>
+					<li>2019 Hunger Boss - Awwwwards</li>
+					<li>2019 Agency Anchord - Css Awards</li>
+					<li>2019 Uon Corp Inc. - Awwwwards, FWA</li>
+					<li>2018 The Quarto - Css Awards, Site of Day</li>
+					<li>2018 Sakado Houses - FWA, Awwwwards</li>
+					<li>2018 Forsage Club - Site of Day, Css Awards</li>
+					<li>2017 The Burger - Css, Awwwwards</li>
+					<li>2017 Porter Inc - FWA</li>
+				</ul>
+			</div>
+			<!-- end col-4 -->
+			<div class="col-md-2">
+				<h3>Sectors</h3>
+			</div>
+			<!-- end col-2 -->
+			<div class="col-md-4">
+				<ul>
+					<li>Food & Beverages</li>
+					<li>Restaurants and Bars</li>
+					<li>Construction and Residences</li>
+					<li>Online Stores in New York</li>
+					<li>Medical Supliments & Healthcare</li>
+					<li>Car Dealers & Rent a Car Agencies</li>
+				</ul>
+			</div>
+			<!-- end col-4 -->
+		</div>
+		<!-- end row -->
+	</div>
+	<!-- end container -->
+</section>
+<!-- end listing-content -->
+<section class="features-content">
+  <div class="container">
+         <div class="row justify-content-center text-center">
+         <div class="col-12">
+         	 <h2>SUCCESS STEPS</h2>
+        <h5>Unleash your creative magic and bring worlds to life through the power of Vision</h5>
+         </div>
+         <!-- end col-12 -->
+          <div class="col-lg-4"> <img src="images/aboutIcon/pre.png" alt="Image" style="height: 100px; width: 100px;">
+            <h4>Pre-Production</h4>
+            <p>The VFX pre-production phase very much mirrors the development and pre-production phase of the producer’s process.</p>
+            <p>It all starts with planning, developing and researching where the technical approach to the film's effects are decided.</p>  
+          </div>
+          <!-- end col-4 -->
+          <div class="col-lg-4"> <img src="images/aboutIcon/pro.png" alt="Image" style="height: 100px; width: 80px;">
+            <h4>Production</h4>
+            <p>Although many elements of the production phase of VFX overlap with pre-production,</p>
+            <p>there are three main steps that take center stage during this cycle:</p>
+            <p>3D modeling, matte painting and principal and reference photography.</p>
+          </div>
+          <!-- end col-4 -->
+          <div class="col-lg-4"> <img src="images/aboutIcon/post.png" alt="Image" style="height: 100px; width: 100px;">
+            <h4>Post-Production</h4>
+            <p>All the elements of a film are put together during the VFX Post-production phase - video footage, special effects, music, sound, editing.</p>
+            <p>A project's timeline is dominated by the post-production stage since the majority of VFX work is completed there.</p>
+          </div>
+          <!-- end col-4 -->
+          
+        </div>
+  </div>
+  <!-- end container --> 
+</section>
+<!-- end features-content -->
+<section class="full-media-content">
+  <div class="video-bg">
+ 	<img src="images/about/showReel.gif" loop="infinite" style="height: 100%;">
+ </div>
+ <!-- end video-bg -->
+  <div class="sides hide-mobile">
+  </div>
+  <!-- end sides -->
+  <div class="sides inner-content">
+    <div class="inner">
+      <h5>Collaborative approach</h5>
+      <h2>INTERFACE</h2>
+      <p>To create a powerful project once, a bit of luck is enough. To generate good products regularly, you need a strong foundation of experience and skills.</p> 
+      <p>Click below to check out our showreel.</p>
+      <a href="https://youtu.be/LzDW73ldHFA" target="_blank">DISCOVER NOW</a> </div>
+    <!-- end inner --> 
+  </div>
+  <!-- end sides --> 
+</section>
+<!-- end full-media-content -->
+
+<footer class="footer">
+  <div class="container"> 
+   <img src="images/logo.png" alt="Image">
+    <h2>Don't be shy and<br>
+      talk to us?</h2>
+    <h5>Say hello@unicord.com.ua </h5>
+    <ul>
+      <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+      <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+      <li><a href="#"><i class="fa fa-behance"></i></a></li>
+      <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+      <li><a href="#"><i class="fa fa-youtube-play"></i></a></li>
+    </ul>
+    <span>© 2018 Unicord | All Rights Reserved</span> </div>
+  <!-- end container --> 
+</footer>
+<!-- end footer --> 
+</main>
+<!-- end main -->
+<audio id="link" src="audio/link.mp3" preload="auto"></audio>
+<audio id="hover-audio" src="audio/hover.mp3" preload="auto"></audio>
+
+
+<!-- JS FILES --> 
+<script src="js/jquery.min.js"></script> 
+<script src="js/popper.min.js"></script> 
+<script src="js/bootstrap.min.js"></script> 
+<script src="js/swiper.min.js"></script> 
+<script src="js/wow.min.js"></script> 
+<script src="js/isotope.min.js"></script> 
+<script src="js/tilt.jquery.js"></script> 
+<script src="js/jquery.typewriter.js"></script>
+<script src='js/TweenMax.min.js'></script> 
+<script src='js/imagesloaded.pkgd.min.js'></script>    
+<script src='js/particles.min.js'></script>  
+<script src='js/jquery.parallax.min.js'></script>  
+<script src='js/motion.blur.js'></script> 
+<script src="js/scripts.js"></script> 
+
+</body>
+</html>
